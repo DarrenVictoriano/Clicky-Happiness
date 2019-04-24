@@ -11,7 +11,7 @@ function Nav(props) {
 
             <span className="navbar-brand mb-0 h1">
                 Score: {props.score}
-                <i class="fas fa-grip-lines-vertical mx-3"></i>
+                <i className="fas fa-grip-lines-vertical mx-3"></i>
                 Top Score: {props.topScore}
             </span>
 

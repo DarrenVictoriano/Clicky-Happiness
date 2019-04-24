@@ -12,16 +12,37 @@ import "./style.css";
 class Home extends React.Component {
     state = {
         score: 0,
-        topScore: 0
+        topScore: 0,
+        imageList: ["Beth.jpg", "Bird.jpg", "Brad.jpg", "Diane.jpg", "Donna.jpg", "Gene.jpg", "Jerry.jpg", "Morty.jpg", "Poopy.jpg", "Rick.jpg", "Summer.jpg", "Wong.jpg"],
+        clickList: []
     }
+
+    shuffleArray = (array) => {
+        let i = array.length - 1;
+        for (; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
+    handleImageClick = (e) => {
+        e.preventDefault();
+
+        console.log(e.target.attributes.name.value);
+    }
+
     render() {
 
-        let imageList = ["Beth.jpg", "Bird.jpg", "Brad.jpg", "Diane.jpg", "Donna.jpg", "Gene.jpg", "Jerry.jpg", "Morty.jpg", "Poopy.jpg", "Rick.jpg", "Summer.jpg", "Wong.jpg"];
-        let renderImage = imageList.map(image => {
+        let renderImage = this.shuffleArray(this.state.imageList).map((image, i) => {
             return (
                 <ImageCard
-                    key={image}
+                    key={i}
+                    name={image}
                     src={require(`../images/characters/${image}`)}
+                    onClick={this.handleImageClick}
                 />
             );
         });
