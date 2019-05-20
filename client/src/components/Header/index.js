@@ -9,7 +9,7 @@ function Header(props) {
         >
             <div className="head-wrap">
                 <h1>
-                    Clicky-Happiness
+                    Clicky-Game
                 </h1>
                 <h4>
                     Click on an image to earn points, but don't click on any more than once!

@@ -14,7 +14,8 @@ class Home extends React.Component {
         score: 0,
         topScore: 0,
         imageList: ["Beth.jpg", "Bird.jpg", "Brad.jpg", "Diane.jpg", "Donna.jpg", "Gene.jpg", "Jerry.jpg", "Morty.jpg", "Poopy.jpg", "Rick.jpg", "Summer.jpg", "Wong.jpg"],
-        clickList: []
+        clickList: [],
+        gameOver: "init"
     }
 
     shuffleArray = (array) => {
@@ -29,9 +30,57 @@ class Home extends React.Component {
     }
 
     handleImageClick = (e) => {
-        e.preventDefault();
 
-        console.log(e.target.attributes.name.value);
+        e.preventDefault();
+        let thisImage = e.target.attributes.name.value;
+        let clickListArr = this.state.clickList;
+        let isInArr = false;
+
+        for (let i = 0; i < clickListArr.length; i++) {
+
+            if (thisImage === clickListArr[i]) {
+                console.log(thisImage);
+                console.log(clickListArr[i]);
+                isInArr = true;
+            } else {
+                console.log(clickListArr[i]);
+
+                isInArr = false;
+            }
+        }
+
+        if (isInArr) {
+            console.log("game over");
+
+            if (this.state.score >= this.state.topScore) {
+                this.setState({
+                    topScore: this.state.score
+                });
+            }
+
+            this.setState({
+                gameOver: true,
+                score: 0
+            });
+        } else {
+            console.log("add to aaray");
+
+            let joined = this.state.clickList.concat(thisImage);
+            console.log(joined);
+
+            this.setState((prevState, props) => ({
+                clickList: joined,
+                score: prevState.score + 1,
+                gameOver: false
+            }));
+
+            if (this.state.score === this.state.topScore) {
+                this.setState({
+                    topScore: this.state.topScore + 1
+                });
+            }
+        }
+
     }
 
     render() {
@@ -52,6 +101,7 @@ class Home extends React.Component {
                 <Nav
                     score={this.state.score}
                     topScore={this.state.topScore}
+                    display={this.state.gameOver}
                 />
                 <Header
                     backgroundImage={bg}
